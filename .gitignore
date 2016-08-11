@@ -1,0 +1,6 @@
+*.class
+/ywj/.settings/*.prefs
+/ywj/.settings/*.component
+/ywj/.settings/*.container
+/ywj/target
+/ywj/.settings
