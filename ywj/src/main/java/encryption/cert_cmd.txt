@@ -2,3 +2,5 @@ keytool -genkey -validity 360 -alias www.ywj.org -keyalg RSA -keystore d:\ywj.ke
 keytool -export -keystore d:\ywj.keystore -alias www.ywj.org -file d:\ywj.cer -rfc  
 
 keytool -delete -alias www.ywj.org -keystore d:\ywj.keystore -storepass 123456
+
+keytool -import -alias cacerts -keystore cacerts -file d:\software\AKAZAM-Mail.cer
