@@ -179,7 +179,7 @@ public class AIOServer {
     private static void close(AsynchronousSocketChannel client) {
         try {
             client.close();
-        } catch (Exception e) {
+        } catch (Exception e) { 
             e.printStackTrace();
         }
     }

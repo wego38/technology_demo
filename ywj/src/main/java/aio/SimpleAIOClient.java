@@ -23,10 +23,13 @@ public class SimpleAIOClient {
 		byteBuffer.flip();
 		System.out.println("byteBuffer=" + byteBuffer);
 		client.write(byteBuffer);
+		client.read(byteBuffer);
+		System.out.println(byteBuffer.get());
 	}
 
 	public static void main(String[] args) throws Exception {
-		SimpleAIOClient c=new SimpleAIOClient("localhost",8080);
+		SimpleAIOClient c=new SimpleAIOClient("localhost",8443);
 		c.write((byte)11);
+		
 	}
 }

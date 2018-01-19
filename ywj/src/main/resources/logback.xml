@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+    <appender name="rootLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level [%logger{0}.%method:%line] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/GAP/logs_batch/root-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="coreLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level [%logger{0}.%method:%line] - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/GAP/logs_batch/core-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level [%logger.%method:%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="logback" level="info" additivity="false">
+        <appender-ref ref="coreLog"/>
+        <appender-ref ref="consoleLog"></appender-ref>
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="rootLog"/>
+        <appender-ref ref="consoleLog"></appender-ref>
+    </root>
+</configuration>

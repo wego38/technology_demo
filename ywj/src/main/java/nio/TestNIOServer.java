@@ -30,33 +30,36 @@ public class TestNIOServer {
 				
 				// Bind the server socket to the local host and port
 				serverSocketChannel.socket().setReuseAddress(true);
-				serverSocketChannel.socket().bind(new InetSocketAddress(10000));
+				serverSocketChannel.socket().bind(new InetSocketAddress(8080));
 				
 				// Register accepts on the server socket with the selector. This
 				// step tells the selector that the socket wants to be put on the
 				// ready list when accept operations occur, so allowing multiplexed
 				// non-blocking I/O to take place.
-				if(selector.select()==0){
-					System.out.println("00000000000000");
-				}
+//				if(selector.select()==0){
+//					System.out.println("00000000000000");
+//				}
 				serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 		
 				// Here's where everything happens. The select method will
 				// return when any operations registered above have occurred, the
 				// thread has been interrupted, etc.
-				while (selector.select() > 0) {
-					// Someone is ready for I/O, get the ready keys
-					Iterator<SelectionKey> it = selector.selectedKeys().iterator();
-		
-					// Walk through the ready keys collection and process date requests.
-					while (it.hasNext()) {
-						SelectionKey readyKey = it.next();
-						it.remove();
+				while(true){
+					while (selector.selectNow()> 0) {
+						// Someone is ready for I/O, get the ready keys
+						Iterator<SelectionKey> it = selector.selectedKeys().iterator();
+						
+						// Walk through the ready keys collection and process date requests.
+						while (it.hasNext()) {
+							SelectionKey readyKey = it.next();
+							it.remove();
 //						Thread.sleep(1000);
-						// The key indexes into the selector so you
-						// can retrieve the socket that's ready for I/O
-						execute((ServerSocketChannel) readyKey.channel());
+							// The key indexes into the selector so you
+							// can retrieve the socket that's ready for I/O
+							execute((ServerSocketChannel) readyKey.channel());
+						}
 					}
+					//Thread.sleep(1000);
 				}
 			} catch (ClosedChannelException ex) {
 				logger.log(Level.SEVERE, null, ex);

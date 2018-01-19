@@ -44,7 +44,7 @@ public class TestNIOClient {
 			SocketChannel socketChannel = null;
 			try {
 				socketChannel = SocketChannel.open();
-				SocketAddress socketAddress = new InetSocketAddress("localhost", 10000);
+				SocketAddress socketAddress = new InetSocketAddress("localhost", 8080);
 				socketChannel.connect(socketAddress);
 				
 				MyRequestObject myRequestObject = new MyRequestObject("request_" + idx, "request_" + idx);
