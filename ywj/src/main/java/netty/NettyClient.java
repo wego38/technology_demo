@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
  * Author: Fangniude
  * Date: 2013-07-15
  */
+//netty3
 public class NettyClient {
 
     public static void main(String[] args) {
@@ -33,16 +34,16 @@ public class NettyClient {
                         .getClass().getClassLoader())), new ObjectEncoder(), new ClientHandler());
             }
         });
+        while(true) {
+            // Start the connection attempt.
+            ChannelFuture future = bootstrap.connect(new InetSocketAddress("localhost", 8000));
 
-        // Start the connection attempt.
-        ChannelFuture future = bootstrap.connect(new InetSocketAddress("localhost", 8000));
-
-        // Wait until the connection is closed or the connection attempt fails.
-        future.getChannel().getCloseFuture().awaitUninterruptibly();
-
+            // Wait until the connection is closed or the connection attempt fails.
+            future.getChannel().getCloseFuture().awaitUninterruptibly();
+        }
         // Shut down thread pools to exit.
-        bootstrap.releaseExternalResources();
-        System.out.println("main end");
+//        bootstrap.releaseExternalResources();
+
     }
 
     private static class ClientHandler extends SimpleChannelHandler {

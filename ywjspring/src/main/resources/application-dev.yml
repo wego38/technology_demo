@@ -1,0 +1,61 @@
+#logging:
+#    config: classpath:logback.xml
+#    path: d:/log/crm_lucky
+#    level:
+#        com.arvato.service.lucky.orm.dao: debug
+spring:
+    devtools:
+        restart:
+            enabled: true
+            additional-paths: src/main/java
+    thymeleaf:
+        cache: false
+    application:
+        name: ywjspring
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+        default-property-inclusion: non_null
+    rabbitmq:
+        host: 172.21.11.138
+        port: 8062
+        username: crm_product
+        password: crm_product
+        virtual-host: crm_product
+    redis:
+        database: 2
+        host: 172.21.11.138
+        port: 8064
+        password: Qq11
+        jedis:
+          pool:
+            max-active: 30
+            max-idle: 30
+            min-idle: 5
+            max-wait: 3000ms
+    cloud:
+        consul:
+          host: localhost
+          port: 8500
+        config:
+          prefix: config
+          enabled: true
+mybatis:
+    typeAliasesPackage: com.arvato.service.lucky.orm.model
+    mapper-locations: classpath:com/arvato/service/lucky/orm/dao/mapping/*.xml
+management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+#    server:
+#      port: 10111
+#      servlet:
+#        context-path: /
+      ssl:
+        enabled: false
+    endpoint:
+      health:
+        show-details: always
+server:
+    port: 8102

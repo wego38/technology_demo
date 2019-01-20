@@ -15,13 +15,15 @@ import redis.clients.jedis.SortingParams;
 
 public class RedisClient {
 
-	private Jedis jedis=new Jedis("180.76.176.234", 6379);// 非切片额客户端连接
+	String hHost="172.21.11.138";
+	int pPort=8064;
+	private Jedis jedis=new Jedis(hHost, pPort);// 非切片额客户端连接
 	private JedisPool jedisPool;// 非切片连接池
 	private ShardedJedis shardedJedis;// 切片额客户端连接
 	private ShardedJedisPool shardedJedisPool;// 切片连接池
 
 	public RedisClient() {
-//		jedis.auth("nil");
+		jedis.auth("Qq11");
 //		initialPool();
 //		initialShardedPool();
 //		shardedJedis = shardedJedisPool.getResource();
@@ -32,7 +34,6 @@ public class RedisClient {
 	public static void main(String[] args) {
 		RedisClient client=new RedisClient();
 		client.KeyOperate();
-		
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class RedisClient {
 		config.setMaxWaitMillis(1000l);
 		config.setTestOnBorrow(false);
 
-		jedisPool = new JedisPool(config, "180.76.176.234", 6379);
+		jedisPool = new JedisPool(config, hHost, 6379);
 	}
 
 	/**
@@ -60,7 +61,7 @@ public class RedisClient {
 		config.setTestOnBorrow(false);
 		// slave链接
 		List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
-		shards.add(new JedisShardInfo("180.76.176.234", 6379, "root"));
+		shards.add(new JedisShardInfo(hHost, 6379, "root"));
 
 		// 构造池
 		shardedJedisPool = new ShardedJedisPool(config, shards);

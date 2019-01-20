@@ -2,5 +2,12 @@
 /ywj/.settings/*.prefs
 /ywj/.settings/*.component
 /ywj/.settings/*.container
+
 /ywj/target
 /ywj/.settings
+.idea
+/ywj
+*.iml
+*target
+*.project
+*.classpath

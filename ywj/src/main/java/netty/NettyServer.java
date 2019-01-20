@@ -12,15 +12,17 @@ import org.jboss.netty.handler.codec.string.StringEncoder;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
+//netty3
 public class NettyServer {
     public static void main(String[] args) {
-        ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+//        ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+        ServerBootstrap bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newFixedThreadPool(5), Executors.newFixedThreadPool(5)));
 
         // Set up the default event pipeline.
         bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
             public ChannelPipeline getPipeline() throws Exception {
                 return Channels.pipeline(new ObjectDecoder(ClassResolvers.cacheDisabled(this
-                        .getClass().getClassLoader())), new ObjectEncoder(), new ServerHandler());
+                        .getClass().getClassLoader())), new ObjectEncoder(), new ServerHandler(),new ServerHandler());
             }
         });
 
@@ -40,7 +42,7 @@ public class NettyServer {
 
                 System.out.println("\n等待客户端输入。。。"+e.getChannel());
 //            }
-
+            Thread.sleep(60000);
             super.messageReceived(ctx, e);
         }
 
